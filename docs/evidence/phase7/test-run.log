@@ -1,0 +1,18 @@
+........................................................................ [ 38%]
+........................................................................ [ 76%]
+.............................................                            [100%]
+=============================== warnings summary ===============================
+../.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /home/claude/scriptorium/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_recognition_real.py: 57 warnings
+tests/test_registry_zenodo.py: 22 warnings
+tests/test_research_real.py: 54 warnings
+tests/test_training_real.py: 18 warnings
+  /home/claude/scriptorium/.venv/lib/python3.12/site-packages/kraken/lib/segmentation.py:1597: DeprecationWarning: Arrays of 2-dimensional vectors are deprecated. Use arrays of 3-dimensional vectors instead. (deprecated in NumPy 2.0)
+    poly_bl_y = np.cross(diff_bl_normed[poly_closest_bl], poly_bl_diff)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+189 passed, 152 warnings in 744.28s (0:12:24)
+exit=0

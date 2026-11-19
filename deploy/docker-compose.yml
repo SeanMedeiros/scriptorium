@@ -1,0 +1,194 @@
+# SCRIPTORIUM — reference deployment.
+#   cp deploy/.env.example deploy/.env   # then set every secret
+#   docker compose -f deploy/docker-compose.yml --env-file deploy/.env up -d --build
+# Persistent data lives in named volumes (postgres, redis, minio, models).
+name: scriptorium
+
+x-backend-env: &backend-env
+  SCRIPTORIUM_ENVIRONMENT: ${SCRIPTORIUM_ENVIRONMENT:-production}
+  SCRIPTORIUM_DATABASE_URL: postgresql+psycopg://scriptorium:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@postgres:5432/scriptorium
+  SCRIPTORIUM_REDIS_URL: redis://:${REDIS_PASSWORD:?set REDIS_PASSWORD}@redis:6379/0
+  SCRIPTORIUM_SECRET_KEY: ${SCRIPTORIUM_SECRET_KEY:?set SCRIPTORIUM_SECRET_KEY}
+  SCRIPTORIUM_PUBLIC_BASE_URL: ${SCRIPTORIUM_PUBLIC_BASE_URL:-https://scriptorium.example.org}
+  SCRIPTORIUM_COOKIE_SECURE: ${SCRIPTORIUM_COOKIE_SECURE:-true}
+  SCRIPTORIUM_TRUST_FORWARDED_FOR: "true"
+  SCRIPTORIUM_ALLOW_SELF_REGISTRATION: ${SCRIPTORIUM_ALLOW_SELF_REGISTRATION:-false}
+  SCRIPTORIUM_STORAGE_BACKEND: s3
+  SCRIPTORIUM_S3_ENDPOINT_URL: http://minio:9000
+  SCRIPTORIUM_S3_BUCKET: scriptorium
+  SCRIPTORIUM_S3_ACCESS_KEY: ${MINIO_ROOT_USER:?set MINIO_ROOT_USER}
+  SCRIPTORIUM_S3_SECRET_KEY: ${MINIO_ROOT_PASSWORD:?set MINIO_ROOT_PASSWORD}
+  SCRIPTORIUM_MODEL_DIR: /data/models
+  SCRIPTORIUM_MAIL_BACKEND: ${SCRIPTORIUM_MAIL_BACKEND:-smtp}
+  SCRIPTORIUM_SMTP_HOST: ${SCRIPTORIUM_SMTP_HOST:-}
+  SCRIPTORIUM_SMTP_PORT: ${SCRIPTORIUM_SMTP_PORT:-587}
+  SCRIPTORIUM_SMTP_USERNAME: ${SCRIPTORIUM_SMTP_USERNAME:-}
+  SCRIPTORIUM_SMTP_PASSWORD: ${SCRIPTORIUM_SMTP_PASSWORD:-}
+  SCRIPTORIUM_MAIL_FROM: ${SCRIPTORIUM_MAIL_FROM:-SCRIPTORIUM <no-reply@example.org>}
+  SCRIPTORIUM_CORS_ORIGINS: '["${SCRIPTORIUM_PUBLIC_BASE_URL:-https://scriptorium.example.org}"]'
+  # Phase 7: malware scanning (fail-closed), HTTP hardening and data retention.
+  SCRIPTORIUM_MALWARE_SCANNER: ${SCRIPTORIUM_MALWARE_SCANNER:-clamd}
+  SCRIPTORIUM_CLAMD_ADDRESS: tcp://clamav:3310
+  SCRIPTORIUM_HSTS_SECONDS: ${SCRIPTORIUM_HSTS_SECONDS:-31536000}
+  SCRIPTORIUM_EXPORT_RETENTION_DAYS: ${SCRIPTORIUM_EXPORT_RETENTION_DAYS:-30}
+  SCRIPTORIUM_ORPHAN_GRACE_DAYS: ${SCRIPTORIUM_ORPHAN_GRACE_DAYS:-7}
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: scriptorium
+      POSTGRES_USER: scriptorium
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U scriptorium -d scriptorium"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD}"]
+    volumes: [redisdata:/data]
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$$REDIS_PASSWORD\" ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+
+  minio:
+    image: minio/minio:latest
+    restart: unless-stopped
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes: [miniodata:/data]
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  clamav:
+    # ClamAV daemon with freshclam-maintained official signatures. Uploads are streamed to it
+    # (INSTREAM) before storage; the API refuses uploads while it is unavailable (fail-closed).
+    image: clamav/clamav:1.4
+    restart: unless-stopped
+    volumes: [clamavdb:/var/lib/clamav]
+    environment:
+      CLAMD_CONF_StreamMaxLength: 600M
+      CLAMD_CONF_MaxFileSize: 600M
+      CLAMD_CONF_MaxScanSize: 600M
+    healthcheck:
+      test: ["CMD", "clamdcheck.sh"]
+      interval: 60s
+      timeout: 10s
+      start_period: 300s
+      retries: 3
+
+  migrate:
+    build: { context: .., dockerfile: deploy/Dockerfile.api }
+    environment: *backend-env
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      postgres: { condition: service_healthy }
+    restart: "no"
+
+  api:
+    build: { context: .., dockerfile: deploy/Dockerfile.api }
+    restart: unless-stopped
+    environment: *backend-env
+    volumes: [models:/data/models]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+      minio: { condition: service_healthy }
+      clamav: { condition: service_healthy }
+
+  worker:
+    build: { context: .., dockerfile: deploy/Dockerfile.worker }
+    restart: unless-stopped
+    environment: *backend-env
+    volumes: [models:/data/models]
+    # Registers Kraken's bundled segmenter for the installed Kraken version, then serves jobs.
+    # The pool process is recycled after a task once it exceeds ~4 GB (models cached across jobs).
+    command: ["sh", "-c", "python -m app.cli register-bundled && exec celery -A app.worker.celery_app worker -Q default,recognition --concurrency 1 --max-memory-per-child 4000000 -n recognition@%h --loglevel INFO"]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+      minio: { condition: service_healthy }
+    deploy:
+      resources:
+        limits: { memory: 6g }
+
+  models-worker:
+    # Model downloads and Kraken validation, isolated so they never delay ingestion or recognition.
+    build: { context: .., dockerfile: deploy/Dockerfile.worker }
+    restart: unless-stopped
+    environment: *backend-env
+    volumes: [models:/data/models]
+    command: ["celery", "-A", "app.worker.celery_app", "worker", "-Q", "models", "--concurrency", "1", "-n", "models@%h", "--loglevel", "INFO"]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+
+  training-worker:
+    # Kraken training (Phase 6): separate from transcription workloads; one job at a time.
+    # Give this service a GPU (deploy.resources.reservations.devices) where available.
+    build: { context: .., dockerfile: deploy/Dockerfile.worker }
+    restart: unless-stopped
+    environment:
+      <<: *backend-env
+      SCRIPTORIUM_TRAINING_DIR: /data/training
+    volumes: [models:/data/models, training:/data/training]
+    command: ["celery", "-A", "app.worker.celery_app", "worker", "-Q", "training", "--concurrency", "1", "-n", "training@%h", "--loglevel", "INFO"]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      redis: { condition: service_healthy }
+
+  scheduler:
+    # Periodic tasks (e.g. re-queueing jobs orphaned by a lost worker). Exactly one instance.
+    build: { context: .., dockerfile: deploy/Dockerfile.api }
+    restart: unless-stopped
+    environment: *backend-env
+    command: ["celery", "-A", "app.worker.celery_app", "beat", "--loglevel", "INFO", "--schedule", "/tmp/celerybeat-schedule"]
+    depends_on:
+      redis: { condition: service_healthy }
+
+  web:
+    build: { context: .., dockerfile: deploy/Dockerfile.web }
+    restart: unless-stopped
+    environment:
+      SCRIPTORIUM_API_ORIGIN: http://api:8000
+    # Bound to the loopback interface: TLS is terminated by the reverse proxy (profile "tls" below,
+    # or the institution's own proxy; see docs/deployment.md).
+    ports: ["127.0.0.1:${SCRIPTORIUM_HTTP_PORT:-3000}:3000"]
+    depends_on:
+      api: { condition: service_healthy }
+
+  proxy:
+    # Optional TLS reverse proxy (automatic certificates): docker compose --profile tls up -d
+    profiles: ["tls"]
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      SCRIPTORIUM_DOMAIN: ${SCRIPTORIUM_DOMAIN:-scriptorium.example.org}
+    volumes: [./Caddyfile:/etc/caddy/Caddyfile:ro, caddydata:/data]
+    depends_on:
+      web: { condition: service_started }
+
+volumes:
+  clamavdb:
+  caddydata:
+  training:
+  pgdata:
+  redisdata:
+  miniodata:
+  models:

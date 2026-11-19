@@ -1,0 +1,37 @@
+{
+  "retention_unreferenced_assets": {
+    "median_ms": 24.12,
+    "plan_root": "Merge Join",
+    "total_cost": 5128.23
+  },
+  "documents_of_collection_page1": {
+    "median_ms": 2.53,
+    "plan_root": "Limit",
+    "total_cost": 1529.67
+  },
+  "document_title_search": {
+    "median_ms": 3.89,
+    "plan_root": "Limit",
+    "total_cost": 307.05
+  },
+  "dashboard_counts": {
+    "median_ms": 2.55,
+    "plan_root": "Result",
+    "total_cost": 1248.67
+  },
+  "audit_recent_page": {
+    "median_ms": 0.42,
+    "plan_root": "Limit",
+    "total_cost": 2.83
+  },
+  "asset_by_page_lookup": {
+    "median_ms": 4.48,
+    "plan_root": "Index Scan",
+    "total_cost": 1102.4
+  },
+  "delete_document_cascade": {
+    "median_ms": 1.22,
+    "plan_root": "ModifyTable",
+    "total_cost": 315.35
+  }
+}

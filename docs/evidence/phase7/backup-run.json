@@ -1,0 +1,61 @@
+{
+  "backup": "/tmp/sbk/scriptorium-backup-20261119T003958Z",
+  "format": "scriptorium-backup/1",
+  "created_at": "2026-11-19T00:40:21.347123+00:00",
+  "scriptorium_version": "0.1.0",
+  "schema_revision": "f233e02e5f64",
+  "storage_backend": "local",
+  "objects": 13,
+  "object_bytes": 210994005,
+  "models": [
+    {
+      "id": "bed50881-bf91-4fc7-82b1-0af109fea437",
+      "path": "/home/claude/scriptorium/var/models/77a638a83c9e535620827a09e410ed36391e9e8e8126d5796a0f15b978186056/blla.mlmodel",
+      "backup_path": "models/77a638a83c9e535620827a09e410ed36391e9e8e8126d5796a0f15b978186056/blla.mlmodel",
+      "sha256": "77a638a83c9e535620827a09e410ed36391e9e8e8126d5796a0f15b978186056"
+    },
+    {
+      "id": "16f5aae8-d980-46c1-b0f9-197fd2bf49e7",
+      "path": "/home/claude/scriptorium/var/models/f179cf3c0e367b3e6e39f56a5699929597f72fcb52ada68284b6f1cb510aaf74/traprinq-coimbra-97b86545-v1.safetensors",
+      "backup_path": "models/f179cf3c0e367b3e6e39f56a5699929597f72fcb52ada68284b6f1cb510aaf74/traprinq-coimbra-97b86545-v1.safetensors",
+      "sha256": "f179cf3c0e367b3e6e39f56a5699929597f72fcb52ada68284b6f1cb510aaf74"
+    },
+    {
+      "id": "14808091-a00b-439d-9105-da150c7b9768",
+      "path": "/home/claude/scriptorium/var/models/1ea4013e1d599bdf9bb7d011a3f6eb4221d069399ca596e7b6139300b6630b8e/traprinq.mlmodel",
+      "backup_path": "models/1ea4013e1d599bdf9bb7d011a3f6eb4221d069399ca596e7b6139300b6630b8e/traprinq.mlmodel",
+      "sha256": "1ea4013e1d599bdf9bb7d011a3f6eb4221d069399ca596e7b6139300b6630b8e"
+    },
+    {
+      "id": "d2435708-229b-4348-84a9-d01a810fb305",
+      "path": "/home/claude/scriptorium/var/models/227d10f15a936c2492105b7796a6152647c742f248af117856f417008eadbc9c/catmus-medieval-1.6.0.mlmodel",
+      "backup_path": "models/227d10f15a936c2492105b7796a6152647c742f248af117856f417008eadbc9c/catmus-medieval-1.6.0.mlmodel",
+      "sha256": "227d10f15a936c2492105b7796a6152647c742f248af117856f417008eadbc9c"
+    },
+    {
+      "id": "1173b96a-bc99-430c-81b3-4129f143556f",
+      "path": "/home/claude/scriptorium/var/models/d1c1fd46af4003b8cf9b18c7049f93f48a8df07f2cbdf29c1d407affe9e251bd/catmus-medieval.mlmodel",
+      "backup_path": "models/d1c1fd46af4003b8cf9b18c7049f93f48a8df07f2cbdf29c1d407affe9e251bd/catmus-medieval.mlmodel",
+      "sha256": "d1c1fd46af4003b8cf9b18c7049f93f48a8df07f2cbdf29c1d407affe9e251bd"
+    }
+  ],
+  "fingerprint": {
+    "users": 2,
+    "institutions": 1,
+    "projects": 1,
+    "documents": 4,
+    "pages": 6,
+    "image_assets": 10,
+    "image_assets_sha256": "20ae7b1ee28c77a27748f12e6dea3a4d",
+    "recognitions": 7,
+    "recognised_text_md5": "33df649e7699750867b268ce024ee993",
+    "transcription_revisions": 10,
+    "line_versions_md5": "5af2e3f72091880ae3a05d186b6d6562",
+    "ground_truth_text_md5": "f21d5a2b6fe496be62d3a1919b449b9d",
+    "evaluation_cer": "0.087041,0.083172,0.601547",
+    "model_versions": "d1c1fd46af4003b8cf9b18c7049f93f48a8df07f2cbdf29c1d407affe9e251bd:validated,1ea4013e1d599bdf9bb7d011a3f6eb4221d069399ca596e7b6139300b6630b8e:validated,f179cf3c0e367b3e6e39f56a5699929597f72fcb52ada68284b6f1cb510aaf74:validated,77a638a83c9e535620827a09e410ed36391e9e8e8126d5796a0f15b978186056:validated,227d10f15a936c2492105b7796a6152647c742f248af117856f417008eadbc9c:validated",
+    "training_jobs": 1,
+    "audit_logs": 95,
+    "schema_revision": "f233e02e5f64"
+  }
+}

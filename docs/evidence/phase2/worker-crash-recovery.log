@@ -1,0 +1,8 @@
+[22:43:25] job da1c0b7e-55a6-4d18-b129-0b69eb10916d submitted
+[22:44:10] job is in stage 'recognition' on worker vm (attempt 1) — sending SIGKILL to the worker
+[22:44:45] after kill: status=processing stage=recognition (orphaned, no heartbeat)
+[22:44:45] starting a new worker (startup recovery)
+[22:45:52] final: status=completed attempts=2 recognised_lines=37
+[22:45:52] job log: ["job started", "segmentation started", "segmentation finished", "recognition started", "worker lost (no heartbeat); job re-queued", "job started", "segmentation started", "segmentation finished", "recognition started", "recognition finished", "job completed"]
+[22:45:52] segmentations stored for the page: 1 (no partial output from the killed attempt)
+[22:45:52] RESULT: PASS

@@ -1,0 +1,9 @@
+[23:37:11] before restart: {'documents': 2, 'pages': 4, 'image_assets': 6, 'jobs_completed': 1, 'segmentations': 1, 'text_lines': 39, 'recognitions': 1, 'line_recognitions': 39, 'recognised_text_md5': 'd58a49130e51606f525b2c6074f4411a', 'validated_models': 4}
+[23:37:11] 6 stored images and 4 model files match their SHA-256
+[23:37:16] PostgreSQL 16 and Redis restarted
+[23:37:16] after restart:  {'documents': 2, 'pages': 4, 'image_assets': 6, 'jobs_completed': 1, 'segmentations': 1, 'text_lines': 39, 'recognitions': 1, 'line_recognitions': 39, 'recognised_text_md5': 'd58a49130e51606f525b2c6074f4411a', 'validated_models': 4}
+[23:37:16] RESULT: PASS — recognition outputs, images and models intact
+catmus-medieval|1.5.0|validated|cc-by-4.0|f
+catmus-medieval|1.6.2|validated|cc-by-4.0|t
+kraken-blla|kraken-7.1.1|validated|Apache-2.0|t
+traprinq-transcription-model-to-recognize-portuguese-handwritten-texts-from-the-16th-to-19th-centuri|V1|validated|cc-by-4.0|t

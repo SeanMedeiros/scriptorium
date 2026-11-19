@@ -1,0 +1,5 @@
+[08:38:39] before restart: {'documents': 2, 'pages': 4, 'image_assets': 8, 'jobs_completed': 4, 'segmentations': 5, 'text_lines': 186, 'recognitions': 2, 'line_recognitions': 78, 'recognised_text_md5': 'c1c33b1388269d90b11f5a06698f5222', 'validated_models': 4, 'transcriptions': 1, 'revisions': 9, 'line_versions': 47, 'line_versions_md5': 'b1c80488f763e5c1226f61680311160a', 'annotations': 1}
+[08:38:39] 8 stored images and 4 model files match their SHA-256
+[08:38:45] PostgreSQL 16 and Redis restarted
+[08:38:45] after restart:  {'documents': 2, 'pages': 4, 'image_assets': 8, 'jobs_completed': 4, 'segmentations': 5, 'text_lines': 186, 'recognitions': 2, 'line_recognitions': 78, 'recognised_text_md5': 'c1c33b1388269d90b11f5a06698f5222', 'validated_models': 4, 'transcriptions': 1, 'revisions': 9, 'line_versions': 47, 'line_versions_md5': 'b1c80488f763e5c1226f61680311160a', 'annotations': 1}
+[08:38:45] RESULT: PASS — recognition outputs, images and models intact

@@ -1,0 +1,15 @@
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - `__dirname` (vitest.config.mts:7:41). Use `import.meta.dirname` instead
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v5.1.0 /home/claude/scriptorium/frontend
+
+
+ Test Files  3 passed (3)
+      Tests  24 passed (24)
+   Start at  21:58:01
+   Duration  2.33s (environment 66%, setup 12%, tests 11%, import 7%, transform 3%, worker 1%)
+
+    Isolate  3 workers spawned · ~533ms startup each (spawn + environment, per file)
+             at least ~1.07s faster with isolate: false — reuses workers across files instead of one per file
+

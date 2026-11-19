@@ -1,0 +1,27 @@
+{"round": 0, "page": "PT-TT-TSO-IL-28-12193_m0197", "size": [1280, 2179], "lines": 10, "chars": 514, "segment_s": 22.81, "recognize_s": 13.01}
+{"round": 0, "page": "PT-TT-TSO-IL-28-687_m0019", "size": [1879, 2685], "lines": 47, "chars": 947, "segment_s": 25.99, "recognize_s": 20.41}
+{"round": 0, "page": "PT-TT-TSO-IL-28-7926_m0052", "size": [1370, 1931], "lines": 37, "chars": 440, "segment_s": 23.07, "recognize_s": 13.18}
+{"round": 1, "page": "PT-TT-TSO-IL-28-12193_m0197", "size": [1280, 2179], "lines": 10, "chars": 514, "segment_s": 19.56, "recognize_s": 6.52}
+{"round": 1, "page": "PT-TT-TSO-IL-28-687_m0019", "size": [1879, 2685], "lines": 47, "chars": 947, "segment_s": 25.31, "recognize_s": 20.15}
+{"round": 1, "page": "PT-TT-TSO-IL-28-7926_m0052", "size": [1370, 1931], "lines": 37, "chars": 440, "segment_s": 24.95, "recognize_s": 12.26}
+{
+  "cpu_threads": 2,
+  "software": {
+    "python": "3.12.3",
+    "kraken": "7.1.1",
+    "torch": "2.14.0",
+    "pillow": "13.0.0",
+    "numpy": "2.4.6",
+    "shapely": "2.1.2",
+    "scikit-image": "0.25.2",
+    "device": "cpu",
+    "torch_threads": "2"
+  },
+  "model": "traprinq.mlmodel",
+  "pages": 3,
+  "mean_segment_s": 23.27,
+  "mean_recognize_s": 12.98,
+  "mean_page_s": 36.25,
+  "pages_per_hour_one_worker": 99,
+  "lines_per_s_recognition": 2.41
+}

@@ -1,0 +1,5 @@
+ready: ok
+dashboard: {'projects': 1, 'collections': 1, 'researchers': 1, 'institutions': 1, 'documents': 4, 'pages': 6, 'processed_pages': 1, 'recognised_lines': 168}
+project: Processos da Inquisição de Coimbra
+page images served and verified by SHA-256: 6
+models: [(None, 'validated'), (None, 'validated'), (None, 'validated'), (None, 'validated'), (None, 'validated')]

@@ -1,0 +1,44 @@
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> c31e5a4077e0, phase1 identity projects collections audit
+INFO  [alembic.runtime.migration] Running upgrade c31e5a4077e0 -> 8c8906ee1237, phase2 documents pages models jobs recognition outputs
+INFO  [alembic.runtime.migration] Running upgrade 8c8906ee1237 -> b393c36fc0a7, phase2 job heartbeat
+INFO  [alembic.runtime.migration] Running upgrade b393c36fc0a7 -> 6f9c7603f2aa, phase3 model registry
+INFO  [alembic.runtime.migration] Running upgrade 6f9c7603f2aa -> 8372a9fc00d8, phase4 transcriptions revisions annotations
+INFO  [alembic.runtime.migration] Running upgrade 8372a9fc00d8 -> ab8a316ca42b, phase5 research tools
+INFO  [alembic.runtime.migration] Running upgrade ab8a316ca42b -> f233e02e5f64, phase6 training institutional models
+
+Running 30 tests using 1 worker
+
+  ✓   1 e2e/01-foundation.spec.ts:23:3 › Phase 1 — foundation › first account becomes platform admin and sees an honest empty dashboard (2.1s)
+  ✓   2 e2e/01-foundation.spec.ts:38:3 › Phase 1 — foundation › admin creates an institution, a project and a collection (2.8s)
+  ✓   3 e2e/01-foundation.spec.ts:94:3 › Phase 1 — foundation › session survives a page reload (HttpOnly refresh cookie) and logout ends it (1.3s)
+  ✓   4 e2e/01-foundation.spec.ts:112:3 › Phase 1 — foundation › interface localisation (pt, fr) (1.3s)
+  ✓   5 e2e/01-foundation.spec.ts:130:3 › Phase 1 — foundation › a second researcher cannot see another institution's project (1.8s)
+  ✓   6 e2e/01-foundation.spec.ts:140:3 › Phase 1 — foundation › password reset through the e-mail outbox (1.6s)
+  ✓   7 e2e/01-foundation.spec.ts:161:3 › Phase 1 — foundation › audit log page shows the append-only trail (1.1s)
+  ✓   8 e2e/02-registry.spec.ts:36:3 › Model registry (real Zenodo) › administrator previews and installs TraPrInq from Zenodo (49.2s)
+  ✓   9 e2e/02-registry.spec.ts:67:3 › Model registry (real Zenodo) › CATMuS Medieval: latest version via concept DOI, then an older version and rollback (24.4s)
+  ✓  10 e2e/02-registry.spec.ts:108:3 › Model registry (real Zenodo) › discovery lists CATMuS records with independent compatibility verdicts (2.7s)
+  ✓  11 e2e/03-engine.spec.ts:33:3 › Kraken engine › upload a manuscript image and a multi-page PDF (11.8s)
+  ✓  12 e2e/03-engine.spec.ts:52:3 › Kraken engine › real HTR job: segmentation + TraPrInq recognition by the worker (54.6s)
+  ✓  13 e2e/03-engine.spec.ts:98:3 › Kraken engine › batch submission and cancellation of a queued job (3.8s)
+  ✓  14 e2e/03-engine.spec.ts:114:3 › Kraken engine › dashboard reflects processed pages from the database (1.6s)
+  ✓  15 e2e/04-workspace.spec.ts:39:3 › Transcription workspace › open the real HTR output; image and text are synchronised (3.4s)
+  ✓  16 e2e/04-workspace.spec.ts:59:3 › Transcription workspace › correct a line with editorial markup; autosave creates revisions; undo/redo (13.0s)
+  ✓  17 e2e/04-workspace.spec.ts:102:3 › Transcription workspace › abbreviation expansion, views and comparison with the HTR output (4.3s)
+  ✓  18 e2e/04-workspace.spec.ts:122:3 › Transcription workspace › history: view a past revision read-only and restore a line version (3.3s)
+  ✓  19 e2e/04-workspace.spec.ts:141:3 › Transcription workspace › comments and queries (2.4s)
+  ✓  20 e2e/04-workspace.spec.ts:154:3 › Transcription workspace › concurrent edits in two sessions produce an explicit conflict (10.7s)
+  ✓  21 e2e/04-workspace.spec.ts:177:3 › Transcription workspace › layout adjustment: delete lines, draw a baseline, real re-recognition (39.5s)
+  ✓  22 e2e/04-workspace.spec.ts:204:3 › Transcription workspace › corrections persist and feed the dashboard (1.4s)
+  ✓  23 e2e/05-research.spec.ts:39:3 › Research tools › ground truth import and real evaluation of two Zenodo models (24.7s)
+  ✓  24 e2e/05-research.spec.ts:84:3 › Research tools › model comparison on the ground-truth segmentation and combined transcription (25.3s)
+  ✓  25 e2e/05-research.spec.ts:114:3 › Research tools › single-page exports are validated; provenance is complete (13.5s)
+  ✓  26 e2e/05-research.spec.ts:147:3 › Research tools › batch export of the collection with manifest; report and dashboard quality (15.3s)
+  ✓  27 e2e/06-advanced.spec.ts:43:3 › Advanced: training, institutional models, annotations, analytics, IIIF › add train and validation ground truth (5.3s)
+  ✓  28 e2e/06-advanced.spec.ts:70:3 › Advanced: training, institutional models, annotations, analytics, IIIF › real fine-tuning of TraPrInq on the training worker (1.9m)
+  ✓  29 e2e/06-advanced.spec.ts:101:3 › Advanced: training, institutional models, annotations, analytics, IIIF › publication package after PI approval (6.7s)
+  ✓  30 e2e/06-advanced.spec.ts:121:3 › Advanced: training, institutional models, annotations, analytics, IIIF › annotations, analytics, IIIF manifest and training-data export (16.2s)
+
+  30 passed (7.6m)

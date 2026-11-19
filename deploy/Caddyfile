@@ -1,0 +1,22 @@
+# TLS termination for SCRIPTORIUM (docker compose --profile tls). Caddy obtains and renews
+# certificates automatically; set SCRIPTORIUM_DOMAIN in deploy/.env and point DNS to this host.
+{$SCRIPTORIUM_DOMAIN} {
+	encode zstd gzip
+	# Large manuscript uploads (keep >= SCRIPTORIUM_MAX_UPLOAD_BYTES × files per request).
+	request_body {
+		max_size 2GB
+	}
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		-Server
+	}
+	reverse_proxy web:3000 {
+		# The API trusts X-Forwarded-For only because SCRIPTORIUM_TRUST_FORWARDED_FOR=true and
+		# this proxy is the only route to it.
+		header_up X-Forwarded-For {remote_host}
+		transport http {
+			read_timeout 30m
+			write_timeout 30m
+		}
+	}
+}

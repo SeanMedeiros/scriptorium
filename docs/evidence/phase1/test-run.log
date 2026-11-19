@@ -1,0 +1,68 @@
+== backend (pytest, real PostgreSQL + Redis + Celery worker) ==
+.........................................                                [100%]
+=============================== warnings summary ===============================
+../.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /home/claude/scriptorium/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.3-final-0 ________________
+
+Name                       Stmts   Miss  Cover
+----------------------------------------------
+app/api/auth.py              148      6    96%
+app/api/dashboard.py          47      1    98%
+app/api/deps.py               51      1    98%
+app/api/health.py             38      2    95%
+app/api/institutions.py       77     17    78%
+app/api/projects.py          161      9    94%
+app/api/users.py              69      9    87%
+app/config.py                 55      2    96%
+app/core/errors.py            28      2    93%
+app/core/permissions.py       39      1    97%
+app/core/security.py          44      2    95%
+app/logging_setup.py          31     11    65%
+app/schemas.py               217      2    99%
+app/services/audit.py         28      5    82%
+app/services/mail.py          31      8    74%
+app/storage/__init__.py      149     19    87%
+app/worker/celery_app.py      12      2    83%
+----------------------------------------------
+TOTAL                       1444     99    93%
+
+11 files skipped due to complete coverage.
+41 passed, 1 warning in 31.88s
+== frontend (type-check + vitest) ==
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - `__dirname` (vitest.config.mts:7:41). Use `import.meta.dirname` instead
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v5.1.0 /home/claude/scriptorium/frontend
+
+
+ Test Files  2 passed (2)
+      Tests  15 passed (15)
+   Start at  21:46:13
+   Duration  1.22s (environment 67%, tests 11%, setup 11%, import 8%, transform 3%, worker 1%)
+
+    Isolate  2 workers spawned · ~429ms startup each (spawn + environment, per file)
+             at least ~429ms faster with isolate: false — reuses workers across files instead of one per file
+
+== end-to-end (Playwright + Chrome, real stack) ==
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> c31e5a4077e0, phase1 identity projects collections audit
+
+Running 7 tests using 1 worker
+
+  ✓  1 e2e/phase1.spec.ts:23:3 › Phase 1 — foundation › first account becomes platform admin and sees an honest empty dashboard (1.9s)
+  ✓  2 e2e/phase1.spec.ts:37:3 › Phase 1 — foundation › admin creates an institution, a project and a collection (2.5s)
+  ✓  3 e2e/phase1.spec.ts:93:3 › Phase 1 — foundation › session survives a page reload (HttpOnly refresh cookie) and logout ends it (1.2s)
+  ✓  4 e2e/phase1.spec.ts:111:3 › Phase 1 — foundation › interface localisation (pt, fr) (1.1s)
+  ✓  5 e2e/phase1.spec.ts:129:3 › Phase 1 — foundation › a second researcher cannot see another institution's project (1.4s)
+  ✓  6 e2e/phase1.spec.ts:139:3 › Phase 1 — foundation › password reset through the e-mail outbox (1.4s)
+  ✓  7 e2e/phase1.spec.ts:160:3 › Phase 1 — foundation › audit log page shows the append-only trail (974ms)
+
+  7 passed (11.1s)
+ 14161/home/claude/scriptorium/scripts/e2e.sh: line 24: 14161 Killed                  setsid bash -c "cd '$ROOT/backend' && exec '$VENV/bin/uvicorn' app.main:app --host 127.0.0.1 --port 8001" > "$E2E_VAR/api.log" 2>&1  (wd: /home/claude/scriptorium)

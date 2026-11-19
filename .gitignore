@@ -1,0 +1,17 @@
+.venv/
+var/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+backend/.env
+deploy/.env
+frontend/node_modules/
+frontend/.next/
+frontend/test-results/
+frontend/playwright-report/
+frontend/next-env.d.ts
+frontend/tsconfig.tsbuildinfo
+.ruff_cache/
+*.egg-info/
+docs/evidence/**/*.log.bak

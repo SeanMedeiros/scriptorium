@@ -1,0 +1,95 @@
+== backend (pytest, real PostgreSQL + Redis + Celery worker) ==
+........................................................................ [ 66%]
+....................................                                     [100%]
+=============================== warnings summary ===============================
+../.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /home/claude/scriptorium/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_recognition_real.py: 51 warnings
+tests/test_registry_zenodo.py: 22 warnings
+  /home/claude/scriptorium/.venv/lib/python3.12/site-packages/kraken/lib/segmentation.py:1597: DeprecationWarning: Arrays of 2-dimensional vectors are deprecated. Use arrays of 3-dimensional vectors instead. (deprecated in NumPy 2.0)
+    poly_bl_y = np.cross(diff_bl_normed[poly_closest_bl], poly_bl_diff)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.3-final-0 ________________
+
+Name                               Stmts   Miss  Cover
+------------------------------------------------------
+app/api/auth.py                      148      6    96%
+app/api/deps.py                       51      1    98%
+app/api/documents.py                 170     35    79%
+app/api/health.py                     38      2    95%
+app/api/institutions.py               77     17    78%
+app/api/projects.py                  161      9    94%
+app/api/recognition.py               192     20    90%
+app/api/registry.py                  152     41    73%
+app/api/users.py                      69      9    87%
+app/cli.py                            55     55     0%
+app/config.py                         70      2    97%
+app/core/errors.py                    28      2    93%
+app/core/permissions.py               39      1    97%
+app/core/security.py                  44      2    95%
+app/logging_setup.py                  31      3    90%
+app/recognition/engine.py            192     20    90%
+app/recognition/preprocessing.py     131      6    95%
+app/registry/local.py                109      5    95%
+app/registry/manager.py              243     41    83%
+app/registry/zenodo.py               220     24    89%
+app/schemas.py                       224      2    99%
+app/schemas_recognition.py           205      1    99%
+app/services/audit.py                 28      4    86%
+app/services/ingest.py               137     13    91%
+app/services/mail.py                  31      8    74%
+app/storage/__init__.py              149     19    87%
+app/worker/celery_app.py              21      8    62%
+app/worker/pipeline.py               248     24    90%
+app/worker/tasks.py                   54     27    50%
+------------------------------------------------------
+TOTAL                               3857    407    89%
+
+16 files skipped due to complete coverage.
+108 passed, 74 warnings in 470.87s (0:07:50)
+== frontend (type-check + vitest) ==
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - `__dirname` (vitest.config.mts:7:41). Use `import.meta.dirname` instead
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+
+ RUN  v5.1.0 /home/claude/scriptorium/frontend
+
+
+ Test Files  2 passed (2)
+      Tests  15 passed (15)
+   Start at  23:46:17
+   Duration  1.41s (environment 68%, setup 11%, tests 11%, import 6%, transform 2%, worker 1%)
+
+    Isolate  2 workers spawned · ~501ms startup each (spawn + environment, per file)
+             at least ~501ms faster with isolate: false — reuses workers across files instead of one per file
+
+== end-to-end (Playwright + Chrome, real stack) ==
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> c31e5a4077e0, phase1 identity projects collections audit
+INFO  [alembic.runtime.migration] Running upgrade c31e5a4077e0 -> 8c8906ee1237, phase2 documents pages models jobs recognition outputs
+INFO  [alembic.runtime.migration] Running upgrade 8c8906ee1237 -> b393c36fc0a7, phase2 job heartbeat
+INFO  [alembic.runtime.migration] Running upgrade b393c36fc0a7 -> 6f9c7603f2aa, phase3 model registry
+
+Running 14 tests using 1 worker
+
+  ✓   1 e2e/01-foundation.spec.ts:23:3 › Phase 1 — foundation › first account becomes platform admin and sees an honest empty dashboard (2.0s)
+  ✓   2 e2e/01-foundation.spec.ts:37:3 › Phase 1 — foundation › admin creates an institution, a project and a collection (2.7s)
+  ✓   3 e2e/01-foundation.spec.ts:93:3 › Phase 1 — foundation › session survives a page reload (HttpOnly refresh cookie) and logout ends it (1.2s)
+  ✓   4 e2e/01-foundation.spec.ts:111:3 › Phase 1 — foundation › interface localisation (pt, fr) (1.1s)
+  ✓   5 e2e/01-foundation.spec.ts:129:3 › Phase 1 — foundation › a second researcher cannot see another institution's project (1.5s)
+  ✓   6 e2e/01-foundation.spec.ts:139:3 › Phase 1 — foundation › password reset through the e-mail outbox (1.5s)
+  ✓   7 e2e/01-foundation.spec.ts:160:3 › Phase 1 — foundation › audit log page shows the append-only trail (1.0s)
+  ✓   8 e2e/02-registry.spec.ts:36:3 › Model registry (real Zenodo) › administrator previews and installs TraPrInq from Zenodo (1.8m)
+  ✓   9 e2e/02-registry.spec.ts:67:3 › Model registry (real Zenodo) › CATMuS Medieval: latest version via concept DOI, then an older version and rollback (33.5s)
+  ✓  10 e2e/02-registry.spec.ts:108:3 › Model registry (real Zenodo) › discovery lists CATMuS records with independent compatibility verdicts (4.1s)
+  ✓  11 e2e/03-engine.spec.ts:33:3 › Kraken engine › upload a manuscript image and a multi-page PDF (10.8s)
+  ✓  12 e2e/03-engine.spec.ts:52:3 › Kraken engine › real HTR job: segmentation + TraPrInq recognition by the worker (47.8s)
+  ✓  13 e2e/03-engine.spec.ts:98:3 › Kraken engine › batch submission and cancellation of a queued job (3.4s)
+  ✓  14 e2e/03-engine.spec.ts:114:3 › Kraken engine › dashboard reflects processed pages from the database (1.1s)
+
+  14 passed (3.6m)

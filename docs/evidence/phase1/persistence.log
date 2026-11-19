@@ -1,0 +1,9 @@
+[21:44:14] created user=persist-c0b88390@persistence.example.org project=13a26852-a45d-4491-bae8-06389d67b40c collection=0eaed0b5-9b06-46f3-a380-453953e4232b audit_entries=2
+[21:44:14] stored object persistence-check/20/206db9272c153ea731eb63b17c9e0621fca1bd566d1fc96759477f2d9ab7b7f0 sha256=206db9272c153ea731eb63b17c9e0621fca1bd566d1fc96759477f2d9ab7b7f0
+[21:44:14] stopping API process
+[21:44:15] restarting PostgreSQL 16 cluster
+[21:44:18] restarting Redis (SHUTDOWN SAVE, start with AOF)
+[21:44:20] starting API process
+[21:44:21] after restart: login OK, project OK, collection OK, audit_entries=2, object sha256 OK
+[21:44:21] health: ok schema=c31e5a4077e0
+[21:44:21] RESULT: PASS — no persistent data lost across restart

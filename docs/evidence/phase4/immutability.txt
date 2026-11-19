@@ -1,0 +1,2 @@
+ERROR:  line_versions is immutable (UPDATE not permitted)
+CONTEXT:  PL/pgSQL function scriptorium_reject_update() line 3 at RAISE

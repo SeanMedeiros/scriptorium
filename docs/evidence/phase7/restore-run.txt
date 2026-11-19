@@ -1,0 +1,22 @@
+== tamper test
+{"error": "1 file(s) fail checksum verification: ['objects/originals/63/637cc777874c9a4bcc383052a5a8baa414eae2d525d7d67df0fc72e30520cc86']"}
+exit=1
+== restore
+{
+  "source": "/tmp/sbk/scriptorium-backup-20261119T003958Z",
+  "files_verified": 20,
+  "objects_restored": 13,
+  "models_restored": 5,
+  "assets_verified": 10,
+  "models_verified": 5,
+  "fingerprint_identical": true,
+  "fingerprint_differences": {}
+}
+
+real	0m2.357s
+user	0m1.241s
+sys	0m0.510s
+exit=0
+== restore again into non-empty DB must be refused
+{"error": "target database is not empty; restore into a newly created database"}
+exit=1

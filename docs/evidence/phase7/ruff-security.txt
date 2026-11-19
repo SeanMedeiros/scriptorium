@@ -1,0 +1,8 @@
+backend/app/config.py:11:15: S105 Possible hardcoded password assigned to: "_DEV_SECRET"
+backend/app/exports/batch.py:95:15: SIM115 Use a context manager for opening files
+backend/app/exports/batch.py:145:15: SIM115 Use a context manager for opening files
+backend/app/schemas.py:57:37: S105 Possible hardcoded password assigned to: "token_type"
+backend/app/storage/__init__.py:56:13: SIM115 Use a context manager for opening files
+backend/app/training/runner.py:28:18: SIM115 Use a context manager for opening files
+backend/app/training/service.py:256:20: S603 `subprocess` call: check for execution of untrusted input
+Found 7 errors.

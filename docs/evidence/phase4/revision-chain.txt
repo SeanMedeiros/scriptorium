@@ -1,0 +1,13 @@
+ number |  kind   |                                                               message                                                               | lines_changed 
+--------+---------+-------------------------------------------------------------------------------------------------------------------------------------+---------------
+      1 | initial | initialised from TraPrInq - Transcription model to recognize Portuguese handwritten texts from the 16th to 19th centuries V1 output |            39
+      2 | edit    |                                                                                                                                     |             1
+      3 | edit    |                                                                                                                                     |             1
+      4 | edit    |                                                                                                                                     |             1
+      5 | edit    |                                                                                                                                     |             1
+      6 | edit    |                                                                                                                                     |             1
+      7 | restore | restored line version 959aabd3                                                                                                      |             1
+      8 | edit    |                                                                                                                                     |             1
+      9 | edit    |                                                                                                                                     |             1
+(9 rows)
+

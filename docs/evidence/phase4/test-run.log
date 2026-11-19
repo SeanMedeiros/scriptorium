@@ -1,0 +1,7 @@
+    poly_bl_y = np.cross(diff_bl_normed[poly_closest_bl], poly_bl_diff)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+140 passed, 80 warnings in 530.76s (0:08:50)
+19 passed, 121 deselected, 1 warning in 3.15s
+ Test Files  3 passed (3)
+      Tests  24 passed (24)
