@@ -4,6 +4,17 @@ Research platform for transcribing historical manuscripts and printed documents 
 Kraken HTR/OCR, human correction, scientific provenance and standard exports
 (ALTO, PAGE, TEI, hOCR).
 
+### Demo (1 min)
+
+[![SCRIPTORIUM demo: recognising and correcting a 1592 Inquisition trial](docs/media/scriptorium-demo-poster.jpg)](docs/media/scriptorium-demo.mp4)
+
+Recorded in the running application: a 4-page PDF of the trial of Águeda Moniz
+(PT/TT/TSO-IL/28/6750, 1592) is recognised with Kraken and the TraPrInq model,
+corrected in the two-panel editor (with full revision history) and exported as TEI
+validated against the official schema. The transcription shown is the model output
+before the researcher's review. [Watch the video](docs/media/scriptorium-demo.mp4)
+(MP4, 1080p, original soundtrack).
+
 > **Delivery status.** The platform is built in controlled phases (see
 > `docs/reports/`). Only features listed as *verified* in the latest phase report
 > are operational. Nothing in the interface simulates a feature that does not
