@@ -1,0 +1,22 @@
+SCRIPTORIUM — Historical Document Intelligence Platform
+Copyright 2026 Sean Carlos Medeiros Souza (ORCID 0009-0001-2853-1140)
+Independent Researcher — scmedeirossouza@gmail.com
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+Redistributions and derivative works must retain this NOTICE file.
+
+Development note: SCRIPTORIUM was conceived, specified and validated by the author, and its source
+code was implemented with the assistance of an AI coding assistant (Claude, by Anthropic).
+
+Third-party material bundled in this repository, under its own licence:
+
+* Swagger UI 5.35.0 (backend/app/static/apidocs) — Apache License 2.0, SmartBear Software.
+* ReDoc 2.5.4 (backend/app/static/apidocs) — MIT License, Redocly Inc.
+* PAGE XML 2019-07-15 schema (backend/app/exports/schemas) — Apache License 2.0, PRImA Research Lab.
+* IIIF Presentation 3.0 JSON Schema (backend/app/exports/schemas) — Apache License 2.0, IIIF Consortium.
+* TEI P5 4.12.0 tei_all RELAX NG schema (backend/app/exports/schemas) — CC BY 3.0 / BSD-2-Clause,
+  TEI Consortium.
+* ALTO 4.4 schema and XLink schema (backend/app/exports/schemas) — Library of Congress / ALTO Board.
+
+Recognition models (e.g. TraPrInq, CATMuS) are not distributed with this software; they are
+downloaded from their Zenodo records and remain under the licences declared there.

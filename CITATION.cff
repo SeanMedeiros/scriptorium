@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use SCRIPTORIUM in your research, please cite it as below."
+type: software
+title: "SCRIPTORIUM — Historical Document Intelligence Platform"
+abstract: >-
+  Research platform for transcribing historical manuscripts and printed documents with
+  Kraken handwritten text recognition (HTR/OCR): model registry with verified installation
+  from Zenodo (TraPrInq, CATMuS), synchronised transcription editor with complete revision
+  history, CER/WER evaluation against researcher ground truth, model comparison, fine-tuning,
+  and schema-validated exports (TEI, ALTO, PAGE, hOCR).
+authors:
+  - given-names: "Sean Carlos"
+    family-names: "Medeiros Souza"
+    email: scmedeirossouza@gmail.com
+    orcid: "https://orcid.org/0009-0001-2853-1140"
+    affiliation: "Independent Researcher"
+version: 0.1.0
+date-released: 2026-11-19
+license: Apache-2.0
+repository-code: "https://github.com/SeanMedeiros/scriptorium"
+keywords:
+  - digital humanities
+  - handwritten text recognition
+  - HTR
+  - OCR
+  - Kraken
+  - paleography
+  - TEI
+  - archives

@@ -96,3 +96,11 @@ Includes ClamAV (uploads scanned before storage, fail-closed) and an optional Ca
 
 Uploaded documents are never sent to third-party AI services. All recognition runs on
 the institution-controlled Kraken workers.
+
+## Licence
+
+SCRIPTORIUM is released under the [Apache License 2.0](LICENSE). Redistributions must keep the
+copyright and attribution notices in [`NOTICE`](NOTICE). Bundled third-party files keep their own
+licences (`backend/app/exports/schemas/README.md`, `backend/app/static/apidocs/README.md`);
+recognition models installed from Zenodo are not part of this repository and remain under the
+licences declared in their source records.
