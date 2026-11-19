@@ -14,6 +14,14 @@ authors:
     email: scmedeirossouza@gmail.com
     orcid: "https://orcid.org/0009-0001-2853-1140"
     affiliation: "Independent Researcher"
+doi: 10.5281/zenodo.24371825
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.24371825
+    description: "Concept DOI: all versions (resolves to the latest release)"
+  - type: doi
+    value: 10.5281/zenodo.24371826
+    description: "Version 0.1.0"
 version: 0.1.0
 date-released: 2026-11-19
 license: Apache-2.0

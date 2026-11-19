@@ -1,5 +1,8 @@
 # SCRIPTORIUM — Historical Document Intelligence Platform
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24371825.svg)](https://doi.org/10.5281/zenodo.24371825)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+
 Research platform for transcribing historical manuscripts and printed documents with
 Kraken HTR/OCR, human correction, scientific provenance and standard exports
 (ALTO, PAGE, TEI, hOCR).
@@ -96,6 +99,16 @@ Includes ClamAV (uploads scanned before storage, fail-closed) and an optional Ca
 
 Uploaded documents are never sent to third-party AI services. All recognition runs on
 the institution-controlled Kraken workers.
+
+## Citation
+
+If you use SCRIPTORIUM in your research, please cite it (all versions):
+
+> Medeiros Souza, S. C. (2026). *SCRIPTORIUM — Historical Document Intelligence Platform*
+> (Version 0.1.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.24371825
+
+Citation metadata (APA, BibTeX) is also available from the "Cite this repository" button on GitHub
+(`CITATION.cff`).
 
 ## Licence
 
